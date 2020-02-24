@@ -41,9 +41,8 @@ router.post('/', async (req, res) => {
     // 3 days refresh token cookie
     let refreshToken = await jwt.sign({ id: newUser.id }, publicKey, { expiresIn: 1000 * 60 * 60 * 24 *3 });
     console.log('refreshToken', refreshToken);
-    res.cookie('token', token)
-      .cookie('refreshToken', refreshToken);
-    res.json('keks worked');
+    // res.json('Та ты заебал работай давай')
+    res.cookie('token', token).cookie('refreshToken', refreshToken).json('hallo sooqa bliat');
   }
 });
 

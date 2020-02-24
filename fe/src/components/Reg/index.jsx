@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styles from './styles.module.scss';
+import cookie from 'react-cookies'
 
 export default function Reg() {
     const [mail, setMail] = useState();
@@ -13,7 +14,7 @@ export default function Reg() {
     const [isRegged, setIsRegged] = useState(false);
 
     async function registration(){
-        const body = await { 
+        const body = { 
             mail,
             name,
             surname,
@@ -21,16 +22,18 @@ export default function Reg() {
             login,
             pwd,
          };
-        await axios.post('http://localhost:5000/reg', body)
-          .then(function (response) {
-            console.log(response);
+        await axios.post('http://localhost:5000/reg', body, { withCredentials: true })
+          .then((response) => {
+            alert(JSON.stringify(response));
+            return response.data;
           })
-          .catch(function (error) {
+          .catch((error) => {
             console.log(error);
           });
-        await setIsRegged(true)
+        setIsRegged(true)
     }
     return (
+      // returning a registration form with a front-end validation using simple HTML\CSS things
         <>
         <form className={styles.form} onSubmit={registration} style={{border: '2px solid black'}}>
             <p>Registration form!</p>
